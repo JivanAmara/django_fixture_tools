@@ -17,7 +17,10 @@ Before starting, make sure that all your South migrations have been applied to y
 In a python script, collect the objects you want into a list and pass that list to db_sample().  Foreign key dependencies will automatically be included.
 @see make_fixture_example.py for an example.
 
-The script should be run in the virtual environment of the project you want to create the fixture for & with Django settings set to your updated django_fixture_tools.settings_maker.  Either redirect output to your new fixture file or specify param 'outfile' in the call to db_sample().
+The script should be run:
+ in the virtual environment of the project you want to create the fixture for.
+ with DJANGO_SETTINGS_MODULE=django_fixture_tools.settings_maker
+Either redirect output to your new fixture file or specify param 'outfile' in the call to db_sample().
 
 Assumptions you probably don't need to worry about:
     Primary key for models is obj.id, if you've changed this for some models,
@@ -40,11 +43,13 @@ Before starting, make sure that all your South migrations have been applied to y
 For fixtures with no South migration history, you will need to run fixture_migrator/initialize_fixtures.py to add current South migration history to the fixtures.
 For fixtures with South migration history included, you can either attempt to migrate them or use initialize_fixtures -f to overwrite their South migration history with current migration history.
 
-migrate_fixtures (only for git users at this time):
+migrate_fixtures (only for git users):
+The script should be run:
+ in the virtual environment of the project you want to create the fixture for.
+ with DJANGO_SETTINGS_MODULE=django_fixture_tools.settings_migrator
+
 Before starting, make sure that all your South migrations have been applied to your database.
 Before starting, make sure that all code changes are committed.
 The algorithm is: Check out commit when fixture was last modified.  Load the fixture.  Check out commit you started from.  Migrate.  Dump.
 
-See each for details of use.
-
-
+Run either with -h for details of use.
