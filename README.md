@@ -8,8 +8,12 @@ fixture_maker allows you to easily sample an existing database to make a new fix
 fixture_migrator allows you to keep those fixtures up-to-date automatically with South migrations.
 
 There are a couple of things that are a little clunky at this point, but should still lift a significant amount of the burden to maintain your fixtures:
- # To use any of the tools you will first need to create a new database 'fixture_tools_db'.  This database will be repeatedly emptied and used to construct/alter fixtures.  If you're using database extensions such as PostGIS, you'll need to make sure this database has the same extensions.  If you're using SQLite, you can skip this.
-Update the settings_migrator.py & settings_maker.py files with the engine/name/password/host/user of the new database.
+
+ 1. Add this package in the same directory as your Django project, so ../django_fixture_tools references it.
+
+ 2. To use any of the tools you will first need to create a new database 'fixture_tools_db'.  This database will be repeatedly emptied and used to construct/alter fixtures.  If you're using database extensions such as PostGIS, you'll need to make sure this database has the same extensions.  If you're using SQLite, you can skip this.
+
+ 3. Update the settings_migrator.py & settings_maker.py files with the engine/name/password/host/user of the new database.
 
 Fixture Maker
 =============

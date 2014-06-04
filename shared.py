@@ -4,9 +4,9 @@
 @brief: Recursively searches current Django project paths for fixtures and migrates each it finds.
 
 Requirements:
-    Existing database 'fixture_migrator' in settings file of project to migrate.
-    django_extensions installed and configured in settings file of project to migrate.
-    
+    Existing database 'fixture_tools_db'.
+    django_extensions installed.
+    Update settings_migrator to replace 'default' db with 'fixture_tools_db'.
 """
 from _collections import defaultdict
 import logging
@@ -231,6 +231,17 @@ def git_checkout_commit(commit):
     logger.debug(o)
 
 
+def git_commit_all(msg='Autocommit: No message specified'):
+    """ @brief: Commits all modified files with message \a msg.
+        @author: Jivan
+        @since: 2014-06-03
+    """
+    cmd = ['git', 'commit', '-a', '-m', '"{}"'.format(msg)]
+    cmd = ' '.join(cmd)
+    o = subprocess.check_output(cmd, shell=True)
+    logger.debug(o)
+
+
 def pg_reset_db(dbname):
     check_output('/usr/bin/sudo -u postgres /usr/bin/dropdb {}'.format(dbname), shell=True)
     check_output('/usr/bin/sudo -u postgres /usr/bin/createdb --owner=fixture_maker '\
@@ -257,7 +268,7 @@ def sync_all(database=None, debug=False):
         @note: *** Sync doesn't work properly on secondary databases, making mistakes with auth
             and contenttypes.  This function currently ignores \a database and uses the
             default database.  This limitation is worked around by creating the migrator settings
-            file with the default database the same as the fixture_migrator database.
+            file with the default database the same as the fixture_tools_db database.
     """
     if database is None:
         raise Exception('database is a required parameter')

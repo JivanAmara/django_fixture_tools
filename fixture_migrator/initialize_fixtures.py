@@ -104,6 +104,7 @@ if __name__ == '__main__':
     elif args.scan_path:
         scan_path = args.scan_path[0]
         force = args.force
+        skip_fixtures = []
         exclude_dirs = ['build', 'sandbox']
         success, fail, skip = initialize_all_fixtures(scan_path, force=force, debug=args.debug,
                                                       exclude_dirs=exclude_dirs,
